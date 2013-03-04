@@ -1,0 +1,15 @@
+{ "name": "expandable"
+, "description": "UNIX shell style file globbing in that painlessly ports to Windows."
+, "author": "Alan Gutierrez <alan@prettyrobots.com>"
+, "version": "0.0.0"
+, "keywords": [ "command", "option", "prompt", "cli", "stdin", "expansions", "zsh", "bash", "console", "glob" ]
+, "licenses": [
+  { "type": "MIT"
+  , "url": "http://github.com/bigeasy/expandable/raw/master/LICENSE"
+  }]
+, "homepage": "http://bigeasy.github.com/expandable"
+, "repository": "git://github.com/bigeasy/expandable.git"
+, "scripts" : { "test": "proof t/*/*.t.js" }
+, "devDependencies": { "proof": "0.0.16" }
+, "dependencies": {}
+}
