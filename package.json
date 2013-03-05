@@ -10,6 +10,6 @@
 , "homepage": "http://bigeasy.github.com/expandable"
 , "repository": "git://github.com/bigeasy/expandable.git"
 , "scripts" : { "test": "proof t/*/*.t.js" }
-, "devDependencies": { "proof": "0.0.16" }
+, "devDependencies": { "proof": "0.0.20" }
 , "dependencies": {}
 }
