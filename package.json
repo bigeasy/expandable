@@ -9,7 +9,7 @@
   }]
 , "homepage": "http://bigeasy.github.com/expandable"
 , "repository": "git://github.com/bigeasy/expandable.git"
-, "scripts" : { "test": "proof t/*/*.t.js" }
-, "devDependencies": { "proof": "0.0.28" }
+, "scripts" : { "test": "proof test t/*/*.t.js" }
+, "devDependencies": { "proof": "0.0.32" }
 , "dependencies": {}
 }
