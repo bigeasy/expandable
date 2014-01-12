@@ -5,7 +5,7 @@
 , "keywords": [ "command", "option", "prompt", "cli", "stdin", "expansions", "zsh", "bash", "console", "glob" ]
 , "licenses": [
   { "type": "Affero GPL 3.0 with linking exception."
-  , "url": "http://github.com/bigeasy/arguable/raw/master/LINKING"
+  , "url": "http://github.com/bigeasy/expandable/raw/master/LINKING"
   }]
 , "homepage": "http://bigeasy.github.com/expandable"
 , "repository": "git://github.com/bigeasy/expandable.git"
