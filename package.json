@@ -1,7 +1,7 @@
 { "name": "expandable"
 , "description": "UNIX shell style file globbing in that painlessly ports to Windows."
 , "author": "Alan Gutierrez <alan@prettyrobots.com>"
-, "version": "0.0.1"
+, "version": "0.0.2"
 , "keywords": [ "command", "option", "prompt", "cli", "stdin", "expansions", "zsh", "bash", "console", "glob" ]
 , "licenses": [
   { "type": "Affero GPL 3.0 with linking exception."
