@@ -1,13 +1,5 @@
-var slice = [].slice, path = require('path'), fs = require('fs');
-
-function die () {
-  console.log.apply(console, slice.call(arguments, 0));
-  process.exit(1);
-}
-
-function say () {
-  console.log.apply(console, slice.call(arguments, 0));
-}
+var path = require('path');
+var fs = require('fs');
 
 const REGEX = new RegExp('(\\' + '/ . * + ? | ( ) [ ] { } \\'.split(' ').join('|\\') + ')', 'g');
 
