@@ -22,7 +22,7 @@
     },
     "devDependencies":
     {
-                            "proof":                        "3.0.0"
+                            "proof":                        "3.0.x"
     },
     "scripts":
     {
