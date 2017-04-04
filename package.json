@@ -24,9 +24,9 @@
     {
                             "proof":                        "3.0.x"
     },
-    "main":                 "expendable",
+    "main":                 "expandable",
     "scripts":
     {
-                            "test": "proof test t/*/*.t.js"
+                            "test": "proof test t/*.t.js"
     }
 }
