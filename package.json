@@ -1,18 +1,31 @@
-{ "name": "expandable"
-, "description": "UNIX shell style file globbing in that painlessly ports to Windows."
-, "author": "Alan Gutierrez <alan@prettyrobots.com>"
-, "version": "0.0.6"
-, "keywords": [ "command", "option", "prompt", "cli", "stdin", "expansions", "zsh", "bash", "console", "glob" ]
-, "licenses": [
-  { "type": "MIT"
-  , "url": "http://github.com/bigeasy/expandable/raw/master/LICENSE"
-  }]
-, "homepage": "http://bigeasy.github.com/expandable"
-, "repository":
-  { "type": "git"
-  , "url": "git://github.com/bigeasy/expandable.git"
-  }
-, "scripts" : { "test": "proof test t/*/*.t.js" }
-, "devDependencies": { "proof": "3.0.0" }
-, "dependencies": {}
+{
+    "name":                 "expandable",
+    "version":              "0.0.6",
+    "description":
+
+      "UNIX shell style file globbing in that painlessly ports to Windows.",
+
+    "keywords":
+    [
+                            "command", "option", "prompt", "cli", "stdin",
+                            "expansions", "zsh", "bash", "console", "glob"
+    ],
+    "author":               "Alan Gutierrez <alan@prettyrobots.com>",
+    "homepage":             "http://bigeasy.github.com/expandable",
+    "repository":
+    {
+                            "type": "git",
+                            "url": "git://github.com/bigeasy/expandable.git"
+    },
+    "dependencies":
+    {
+    },
+    "devDependencies":
+    {
+                            "proof":                        "3.0.0"
+    },
+    "scripts":
+    {
+                            "test": "proof test t/*/*.t.js"
+    }
 }
