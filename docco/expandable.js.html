@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>expandable.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+
+    <ul class="sections">
+
+          <li id="title">
+              <div class="annotation">
+                  <h1>expandable.js</h1>
+              </div>
+          </li>
+
+
+
+        <li id="section-1">
+            <div class="annotation">
+
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+
+            </div>
+
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>)
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)
+
+<span class="hljs-keyword">var</span> REGEX = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'(\\'</span> + <span class="hljs-string">'/ . * + ? | ( ) [ ] { } \\'</span>.split(<span class="hljs-string">' '</span>).join(<span class="hljs-string">'|\\'</span>) + <span class="hljs-string">')'</span>, <span class="hljs-string">'g'</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">regular</span> (<span class="hljs-params">text</span>) </span>{ <span class="hljs-keyword">return</span> text.replace(REGEX, <span class="hljs-string">'\\$1'</span>) }
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">find</span> (<span class="hljs-params">base, directory, pattern, index, found</span>) </span>{
+    <span class="hljs-keyword">if</span> (index == pattern.length) {
+        found.push(path.relative(base, directory))
+        <span class="hljs-keyword">return</span>
+    }
+
+    <span class="hljs-keyword">if</span> (pattern[index](<span class="hljs-string">'.'</span>)) {
+        find(base, directory, pattern, index + <span class="hljs-number">1</span>, found)
+        <span class="hljs-keyword">return</span>
+    }
+
+    <span class="hljs-keyword">if</span> (pattern[index](<span class="hljs-string">'..'</span>)) {
+        find(base, path.dirname(directory), pattern, index + <span class="hljs-number">1</span>, found)
+        <span class="hljs-keyword">return</span>
+    }
+
+    <span class="hljs-keyword">if</span> (!fs.statSync(directory).isDirectory()) {
+        <span class="hljs-keyword">return</span>
+    }
+
+    fs.readdirSync(directory).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">file</span>) </span>{
+        <span class="hljs-keyword">if</span> (pattern[index](file)) {
+            find(base, path.resolve(directory, file), pattern, index + <span class="hljs-number">1</span>, found)
+        }
+    })
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">explode</span> (<span class="hljs-params">pattern</span>) </span>{
+    <span class="hljs-keyword">var</span> exploded = []
+    pattern.split(<span class="hljs-string">'/'</span>).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">unix</span>) </span>{
+        unix.split(<span class="hljs-string">'\\'</span>).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">part</span>) </span>{
+            exploded.push(part)
+        })
+    })
+    <span class="hljs-keyword">return</span> exploded
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">alternation</span> (<span class="hljs-params">$</span>) </span>{
+    <span class="hljs-keyword">var</span> regex = <span class="hljs-string">'('</span>, $<span class="hljs-number">1</span>
+    <span class="hljs-keyword">while</span> ($<span class="hljs-number">1</span> = <span class="hljs-regexp">/^([^{}]*)([{}])(.*)$/</span>.exec($[<span class="hljs-number">3</span>])) {
+        $ = $<span class="hljs-number">1</span>
+        regex += $[<span class="hljs-number">1</span>].split(<span class="hljs-string">','</span>).map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">alt</span>) </span>{ <span class="hljs-keyword">return</span> compile(alt) }).join(<span class="hljs-string">'|'</span>)
+        <span class="hljs-keyword">if</span> ($[<span class="hljs-number">2</span>] == <span class="hljs-string">'}'</span>) {
+            regex += <span class="hljs-string">')'</span>
+        } <span class="hljs-keyword">else</span> {
+            $ = alternation($)
+            regex += $[<span class="hljs-number">1</span>]
+        }
+    }
+    $[<span class="hljs-number">1</span>] = regex
+    <span class="hljs-keyword">return</span> $
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">compile</span> (<span class="hljs-params">glob</span>) </span>{
+    <span class="hljs-keyword">var</span> $, regex = <span class="hljs-string">''</span>
+    <span class="hljs-keyword">while</span> ($ = <span class="hljs-regexp">/^(.*?)(\*|\?|\[[^\]]+\]|{)(.*)$/</span>.exec(glob)) {
+        regex += regular($[<span class="hljs-number">1</span>])
+        <span class="hljs-keyword">switch</span> ($[<span class="hljs-number">2</span>][<span class="hljs-number">0</span>]) {
+        <span class="hljs-keyword">case</span> <span class="hljs-string">'*'</span>:
+            regex += <span class="hljs-string">'.*'</span>
+            <span class="hljs-keyword">break</span>
+        <span class="hljs-keyword">case</span> <span class="hljs-string">'?'</span>:
+            regex += <span class="hljs-string">'.'</span>
+            <span class="hljs-keyword">break</span>
+        <span class="hljs-keyword">case</span> <span class="hljs-string">'['</span>:
+            regex += $[<span class="hljs-number">2</span>].replace(<span class="hljs-regexp">/^\[!/</span>, <span class="hljs-string">'[^'</span>)
+            <span class="hljs-keyword">break</span>
+        <span class="hljs-keyword">case</span> <span class="hljs-string">'{'</span>:
+            $ = alternation($)
+            regex += $[<span class="hljs-number">1</span>]
+            <span class="hljs-keyword">break</span>
+        }
+        glob = $[<span class="hljs-number">3</span>]
+    }
+    <span class="hljs-keyword">return</span> regex + regular(glob)
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">glob</span> (<span class="hljs-params">directory, argv</span>) </span>{
+    <span class="hljs-keyword">var</span> found = []
+    argv.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pattern</span>) </span>{
+        <span class="hljs-keyword">var</span> exploded = explode(pattern), match
+
+        <span class="hljs-keyword">var</span> compiled = exploded.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">part</span>) </span>{
+            <span class="hljs-keyword">var</span> regex
+            <span class="hljs-keyword">if</span> (<span class="hljs-regexp">/^\.\.?$/</span>.test(part)) {
+                <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">file</span>) </span>{ <span class="hljs-keyword">return</span> file == part }
+            }
+            regex = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'^'</span> + compile(part) + <span class="hljs-string">'$'</span>)
+            <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">file</span>) </span>{ <span class="hljs-keyword">return</span> !<span class="hljs-regexp">/^\.\.?/</span>.test(file) &amp;&amp; regex.test(file) }
+        })
+
+        found.push(match = { <span class="hljs-attr">path</span>: pattern, <span class="hljs-attr">files</span>: [] })
+        exploded = explode(directory)
+        <span class="hljs-keyword">if</span> (exploded[<span class="hljs-number">0</span>] == <span class="hljs-string">''</span>) {
+            exploded[<span class="hljs-number">0</span>] = <span class="hljs-string">'/'</span>
+        }
+        <span class="hljs-keyword">var</span> normalized = path.normalize(path.join.apply(path, exploded))
+        find(normalized, normalized, compiled, <span class="hljs-number">0</span>, match.files)
+    })
+    <span class="hljs-keyword">return</span> found
+}
+
+exports.glob = glob</pre></div></div>
+
+        </li>
+
+    </ul>
+  </div>
+</body>
+</html>
