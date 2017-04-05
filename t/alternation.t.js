@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 require('proof')(8, function (assert) {
+    var glob = require('..')
     var found
-    var glob = require('..').glob
     found = glob(__dirname + '/..', [ './t/{plain,class}.t.js' ])
     assert(found[0].files.length, 2, 'find many')
     assert(found[0].files.sort().pop(), 't/plain.t.js', 'alternation')

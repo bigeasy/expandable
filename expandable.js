@@ -107,4 +107,4 @@ function glob (directory, argv) {
     return found
 }
 
-exports.glob = glob
+module.exports = glob
