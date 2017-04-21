@@ -1,5 +1,6 @@
 var path = require('path')
 var fs = require('fs')
+var assert = require('assert')
 
 var REGEX = new RegExp('(\\' + '/ . * + ? | ( ) [ ] { } \\'.split(' ').join('|\\') + ')', 'g')
 
@@ -98,9 +99,10 @@ function glob (directory, argv) {
 
         found.push(match = { path: pattern, files: [] })
         exploded = explode(directory)
-        if (exploded[0] == '') {
-            exploded[0] = '/'
-        }
+        // TODO Make it work with relative file paths.
+        assert(exploded[0] == '')
+        // Leading slash is necessary because of join.
+        exploded[0] = '/'
         var normalized = path.normalize(path.join.apply(path, exploded))
         find(normalized, normalized, compiled, 0, match.files)
     })
