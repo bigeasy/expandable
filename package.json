@@ -7,8 +7,9 @@
 
     "keywords":
     [
-                            "command", "option", "prompt", "cli", "stdin",
-                            "expansions", "zsh", "bash", "console", "glob"
+                            "bluey", "command", "option", "prompt", "cli",
+                            "stdin", "expansions", "zsh", "bash", "console",
+                            "glob"
     ],
     "author":               "Alan Gutierrez <alan@prettyrobots.com>",
     "homepage":             "http://bigeasy.github.com/expandable",
