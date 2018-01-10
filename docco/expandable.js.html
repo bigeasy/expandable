@@ -32,6 +32,7 @@
 
             <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>)
 <span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)
+<span class="hljs-keyword">var</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>)
 
 <span class="hljs-keyword">var</span> REGEX = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'(\\'</span> + <span class="hljs-string">'/ . * + ? | ( ) [ ] { } \\'</span>.split(<span class="hljs-string">' '</span>).join(<span class="hljs-string">'|\\'</span>) + <span class="hljs-string">')'</span>, <span class="hljs-string">'g'</span>)
 
@@ -130,16 +131,47 @@
 
         found.push(match = { <span class="hljs-attr">path</span>: pattern, <span class="hljs-attr">files</span>: [] })
         exploded = explode(directory)
-        <span class="hljs-keyword">if</span> (exploded[<span class="hljs-number">0</span>] == <span class="hljs-string">''</span>) {
-            exploded[<span class="hljs-number">0</span>] = <span class="hljs-string">'/'</span>
-        }
+</pre></div></div>
+
+        </li>
+
+
+        <li id="section-2">
+            <div class="annotation">
+
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>TODO Make it work with relative file paths.</p>
+
+            </div>
+
+            <div class="content"><div class='highlight'><pre>        assert(exploded[<span class="hljs-number">0</span>] == <span class="hljs-string">''</span>)
+</pre></div></div>
+
+        </li>
+
+
+        <li id="section-3">
+            <div class="annotation">
+
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Leading slash is necessary because of join.</p>
+
+            </div>
+
+            <div class="content"><div class='highlight'><pre>        exploded[<span class="hljs-number">0</span>] = <span class="hljs-string">'/'</span>
         <span class="hljs-keyword">var</span> normalized = path.normalize(path.join.apply(path, exploded))
         find(normalized, normalized, compiled, <span class="hljs-number">0</span>, match.files)
     })
     <span class="hljs-keyword">return</span> found
 }
 
-exports.glob = glob</pre></div></div>
+<span class="hljs-built_in">module</span>.exports = glob
+
+</pre></div></div>
 
         </li>
 
