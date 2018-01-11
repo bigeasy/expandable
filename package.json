@@ -1,6 +1,6 @@
 {
     "name":                 "expandable",
-    "version":              "0.1.3",
+    "version":              "0.1.4",
     "description":
 
       "UNIX shell style file globbing in that painlessly ports to Windows.",
