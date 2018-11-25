@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 require('proof')(8, function (okay) {
     var glob = require('..')
     var found

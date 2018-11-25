@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 require('proof')(2, function (okay) {
     var glob = require('..')
     var found = glob(__dirname + '/..', [ './t/plain.t.js' ])
