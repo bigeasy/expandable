@@ -1,4 +1,6 @@
-require('proof')(8, function (okay) {
+require('proof')(8, prove)
+
+function prove (okay) {
     var glob = require('..')
     var found
     found = glob(__dirname + '/..', [ './t/{plain,class}.t.js' ])
@@ -13,4 +15,4 @@ require('proof')(8, function (okay) {
     found = glob(__dirname + '/..', [ './t/{{plain,star},class}.t.js' ])
     okay(found[0].files.length, 3, 'find many with alternation')
     okay(found[0].files.sort().pop(), 't/star.t.js', 'alternation with alternation')
-})
+}
